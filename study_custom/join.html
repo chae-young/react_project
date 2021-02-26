@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    </head>
+    <body>
+        
+        <div id="root"></div>
+        <script type="text/babel">
+        //아이디랑 이름 생년월일 입력하면 정보아래에 뜨도록..!
+        
+        class MemBer extends React.Component{
+            constructor(props){
+                super(props)
+                this.state = {
+                    month:'',
+                    day:'',
+                    id:'',
+                    result:''
+                }
+            }
+            selectOn = (e)=>{
+                console.log(e.target.options[e.target.selectedIndex].value)
+            }
+            inputOn = (e)=>{
+                this.setState({
+                    value:e.target.value
+                })
+            }
+
+            render(){
+                return(
+                <>
+                    <form onSubmit={ ()=>{console.log(2)} }>
+                        <div>
+                            <label htmlFor="">아이디 :</label>
+                            <input type="text" value={this.state.id} onChange={this.inputOn}/>
+                        </div>
+                        <div>
+                            <label htmlFor="">생년월일</label>
+                            <select name="" id="" onChange={this.selectOn}>
+                                <option value="">0662</option>
+                                <option value="">0662</option>
+                                <option value="">0662</option>
+                            </select>
+                            <input type="text" value={this.state.month} onChange={this.inputOn}/>
+                            <input type="text" value={this.state.day} onChange={this.inputOn}/>
+                        </div>
+                        <button>입력</button>
+                        <div>{this.state.result}</div>
+                    </form>
+                </>
+                )
+            }
+        }
+        </script>
+
+        <script type="text/babel">
+            ReactDOM.render( <MemBer/>,document.querySelector('#root') )
+        </script>
+    </body>
+
+</html>
