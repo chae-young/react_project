@@ -13,17 +13,30 @@
         class MemBer extends React.Component{
             constructor(props){
                 super(props)
+                const dateYear = new Date().getFullYear();
+
                 this.state = {
                     id:'',
                     month:'',
-                    day:'',
+                    year:dateYear,
+                    options:<option value="">{dateYear}</option>,
                     result:''
                 }
             }
+
+
             selectOn = (e)=>{
                 const sel = e.target;
-                console.log(sel.options[sel.selectedIndex].value)
+                this.setState=({
+                    year:sel.options[sel.selectedIndex].value
+                })
             }
+
+            selecOptions = (()=>{
+                const op = 1
+                console.log(op)
+            })()
+
             inputOn = (e)=>{
                 this.setState=({
                     [e.target.name]:e.target.value
@@ -41,9 +54,7 @@
                         <div>
                             <label htmlFor="">생년월일</label>
                             <select name="" id="" onChange={this.selectOn}>
-                                <option value="">0662</option>
-                                <option value="">0662</option>
-                                <option value="">0662</option>
+                                {this.state.options}
                             </select>
                             <input type="text" name="" value={this.state.value2} onChange={this.inputOn}/>
                             <input type="text" name="" value={this.state.value3} onChange={this.inputOn}/>
