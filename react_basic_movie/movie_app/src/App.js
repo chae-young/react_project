@@ -53,9 +53,14 @@ class App extends Component {
   }
 
   _renderMovie = () => {
-    console.log(1)
     const movies = this.state.movies.map((movie,index)=>{
-      return <Movie title={movie.title} image={movie.large_cover_image} key={movie.id}/>
+      return <Movie 
+      title={movie.title_english} 
+      image={movie.small_cover_image} 
+      genres={movie.genres} 
+      key={movie.id}
+      synopsis={movie.synopsis}
+      />
     })
     return movies
   }
@@ -83,7 +88,7 @@ class App extends Component {
 
   render(){
     return (
-    <div className="App">
+    <div className={this.state.movies ? "App" : "App--loading"}>
 
       {this.state.movies ? this._renderMovie() : 'loading'}
 
