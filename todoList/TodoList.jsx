@@ -2,7 +2,7 @@ import React,{useCallback, useState, useRef} from 'react';
 import { List, Input, Button, Checkbox } from 'antd';
 import { CloseCircleOutlined } from '@ant-design/icons';
 
-let num = 0;
+
 
 const TodoList = ()=>{
     const btnRef = useRef();
@@ -17,18 +17,17 @@ const TodoList = ()=>{
     },[])
     const onSubmit = useCallback(()=>{
         if(text!==''){
-           setCheckList([ ...checklist,text]),
-           setBtn(()=>{
-               return [...btn,num+=1]
-           })
-        }        
+           setCheckList([ ...checklist,text])
+        }       
+        
     },[text])
     const onChangeCheckbox = useCallback((e)=>{
         setIsChecked(e.target.checked)
     },[])
-    const onRemoveList = useCallback((e)=>{
-         const objCheckList = {...checklist}
-        console.log(btn)
+    const onRemoveList = useCallback((text)=>(e)=>{
+        setCheckList((prev)=>{
+            return prev.filter(v=>v!==text)
+        })
     },[text])
 
     return(
@@ -37,11 +36,11 @@ const TodoList = ()=>{
             <div>
                 {checklist.length ? <List 
                     bordered
-                    dataSource={checklist}                    
+                    dataSource={checklist}                
                     renderItem={item => (
                         <List.Item>
-                            <Checkbox className={isChecked && 'line'} onChange={onChangeCheckbox}>{}</Checkbox>
-                            <Button ref={btnRef} type="text" onClick={onRemoveList}><CloseCircleOutlined /></Button>
+                            <Checkbox className={isChecked && 'line'} onChange={onChangeCheckbox}>{item}</Checkbox>
+                            <Button ref={btnRef} type="text" onClick={onRemoveList(item)}><CloseCircleOutlined /></Button>
                         </List.Item>
                     )}
                     />: null
