@@ -6,30 +6,39 @@ import {ListBox} from './styles';
 const TodoList = ()=>{
     const [text,setText] = useState('');
     const [checklist,setCheckList] = useState([]);
-    const [isChecked,setIsChecked] = useState(false);
-    
+    const [completedCheck,setCompletedCheck] = useState([]);
+
     const onChangeText = useCallback((e)=>{
         setText(e.target.value);
     },[])
     const onSubmit = useCallback(()=>{
         if(text!==''){
             setCheckList([ ...checklist,text]);
+            setCompletedCheck([...completedCheck,0]);
             setText('');
-        }     
+        }   
     },[text])
     const handleKeyDown = useCallback((e)=>{
         onSubmit()
     },[text])
-    const onChangeCheckbox = useCallback((e)=>{
-        setIsChecked(e.target.checked)
-    },[])
-    const onRemoveList = useCallback((text)=>(e)=>{
-        setCheckList((prev)=>{
-            return prev.filter(v=>v!==text)
-        })
+    const onChangeCheckbox = (num)=>(e)=>{
+        setCompletedCheck((prev)=> prev.map((v,i)=> {
+            if(v == 0 && i===num && e.target.checked){
+                v = 1
+            }else if(v == 1 && i===num){
+                v = 0
+            }
+            return v
+        }))
+    }
+    const onRemoveList = useCallback((num)=>(e)=>{
+        setCheckList((prev)=> prev.filter((v,i)=> i !== num))
+        setCompletedCheck((prev)=> prev.filter((v,i)=> i !== num))
     },[text])
+  
     const onAllRemoveList = useCallback(()=>{
-        setCheckList([])
+        setCheckList([]);
+        setCompletedCheck([]);
     },[])
 
     return(
@@ -41,13 +50,12 @@ const TodoList = ()=>{
                 {checklist.length ? <div><List 
                     bordered
                     dataSource={checklist}                
-                    renderItem={item => (
-                        <List.Item>
-                            <Checkbox className={isChecked && 'line'} onChange={onChangeCheckbox}>{item}</Checkbox>
-                            <Button type="text" onClick={onRemoveList(item)}><CloseCircleOutlined /></Button>
-                        </List.Item>
-                    )}
-                    /><Button style={{float:'right'}} type="text" onClick={onAllRemoveList}>Clear</Button></div>
+                    renderItem={(item,i) => (
+                    <List.Item>
+                        <Checkbox checked={completedCheck[i] ? true : false} className={completedCheck[i] && 'line'} onChange={onChangeCheckbox(i)}>{item}</Checkbox>
+                        <Button type="text" onClick={onRemoveList(i)}><CloseCircleOutlined /></Button>
+                    </List.Item>
+                    )}/><Button style={{float:'right'}} type="text" onClick={onAllRemoveList}>Clear</Button></div>
                 : null
                 }         
             </ListBox>
