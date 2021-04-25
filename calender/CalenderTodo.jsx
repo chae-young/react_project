@@ -5,6 +5,19 @@ import Week from './Week';
 
 const CalenderTodo = ()=>{
     const [today,setToday] = useState(moment());
+    const [selected,setSelected] = useState(moment().startOf('day'))
+    const select = (day)=>{
+        setToday(day.date.clone());
+        setSelected(day.date);
+    }
+    const previous = ()=>{
+        setToday(today.clone().subtract(1, 'month'))
+    }
+    
+    const next = ()=> {
+        setToday(today.clone().add(1,'month'))
+    }
+
     const renderWeeks = ()=> {
         let weeks = [];
         let done = false;
@@ -13,25 +26,33 @@ const CalenderTodo = ()=>{
         let count = 0;
         //전달
         let monthIndex = date.month();
+
         while (!done) {
             weeks.push(
-                1
+                <Week key={date} 
+                date={date.clone()} 
+                month={today} 
+                select={(day)=>select(day)} 
+                selected={selected}/>
             );  
             date.add(1, "w");
-            console.log(monthIndex)
+            /*
+            0 > 2 => false , 2 !== 3 => true
+            1 > 2 => false , 3 !== 3 => false
+            2 > 2 => false , 3 !== 3 => false
+            3 > 2 => true , 3 !== 3 => false
+            4 > 2 => true , 3 !== 4 => true
+            */
             done = count++ > 2 && monthIndex !== date.month();
             monthIndex = date.month();
-         // console.log(count,monthIndex,date.month())
-          
         }
-    
-        console.log(weeks)
+        return weeks
       };
-      renderWeeks()
+      //renderWeeks()
     return(
         <div>
             <div className="calender__head">
-                <button></button>{today.format("YYYY[년] MMMM")}<button></button>
+                <button onClick={previous}></button>{today.format("YYYY[년] MMMM")}<button onClick={next}></button>
                 <table>
                     <thead>
                         <tr>
@@ -45,7 +66,7 @@ const CalenderTodo = ()=>{
                         </tr>
                     </thead>
                     <tbody>
-                        
+                        {renderWeeks()}
                     </tbody>
                 </table>
             </div>
