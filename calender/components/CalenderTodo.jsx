@@ -1,13 +1,19 @@
 import React,{useState} from 'react';
 import moment from 'moment'
 import 'moment/locale/ko';
+import { Container, Row , Col } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Week from './Week';
+import WritePopup from './WritePopup';
 
 const CalenderTodo = ()=>{
     const [today,setToday] = useState(moment());
     const [selected,setSelected] = useState(moment().startOf('day'))
+    const dayName = ["Sun","Mon","Tue","Wed","Thu","Fri","Set"];
+
     const select = (day)=>{
-        setToday(day.date.clone());
+        //setToday(day.date.clone());
+        console.log(day.date.toDate())
         setSelected(day.date);
     }
     const previous = ()=>{
@@ -21,7 +27,7 @@ const CalenderTodo = ()=>{
     const renderWeeks = ()=> {
         let weeks = [];
         let done = false;
-        //전달 일요일
+        //전달 일요일 -> 현재 주
         let date = today.clone().startOf("month").add("w" -1).day("Sunday");
         let count = 0;
         //전달
@@ -36,41 +42,22 @@ const CalenderTodo = ()=>{
                 selected={selected}/>
             );  
             date.add(1, "w");
-            /*
-            0 > 2 => false , 2 !== 3 => true
-            1 > 2 => false , 3 !== 3 => false
-            2 > 2 => false , 3 !== 3 => false
-            3 > 2 => true , 3 !== 3 => false
-            4 > 2 => true , 3 !== 4 => true
-            */
             done = count++ > 2 && monthIndex !== date.month();
             monthIndex = date.month();
         }
         return weeks
       };
-      //renderWeeks()
+
     return(
-        <div>
+        <div className="calender-wrap">
             <div className="calender__head">
                 <button onClick={previous}></button>{today.format("YYYY[년] MMMM")}<button onClick={next}></button>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Sun</th>
-                            <th>Mon</th>
-                            <th>Tue</th>
-                            <th>Wed</th>
-                            <th>Thu</th>
-                            <th>Fri</th>
-                            <th>Sat</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {renderWeeks()}
-                    </tbody>
-                </table>
             </div>
-            
+            <Container fluid className="calender__container">
+                <Row>{dayName.map(v=><Col>{v}</Col>)}</Row>
+                {renderWeeks()}
+            </Container>                 
+            <WritePopup/>
         </div>
     )
 }

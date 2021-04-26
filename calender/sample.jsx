@@ -63,7 +63,13 @@ class Calendar extends React.Component {
       );
 
       date.add(1, "w");
-      
+           /*
+            0 > 2 => false , 2 !== 3 => true
+            1 > 2 => false , 3 !== 3 => false
+            2 > 2 => false , 3 !== 3 => false
+            3 > 2 => true , 3 !== 3 => false
+            4 > 2 => true , 3 !== 4 => true
+            */
       done = count++ > 2 && monthIndex !== date.month();
       monthIndex = date.month();
     }

@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import moment from 'moment'
 import Day from './Day'
+import { Row } from 'react-bootstrap';
 
 const Week = ({date,month,select,selected})=>{
     let days = [];
@@ -17,14 +18,13 @@ const Week = ({date,month,select,selected})=>{
             selected={selected}
             select={select}/>
         );
-  
         date = date.clone();
         date.add(1, "day");
         }
     return(
-      <tr className="row week">
+      <Row>
         {days}
-      </tr>
+      </Row>
     )
 }
 
