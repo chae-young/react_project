@@ -20,7 +20,8 @@ const Week = ({date,month,select,selected})=>{
         );
         date = date.clone();
         date.add(1, "day");
-        }
+    }
+
     return(
       <Row>
         {days}
