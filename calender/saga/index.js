@@ -1,29 +1,51 @@
-import {all,fork, put, takeLatest} from 'redux-saga/effects';
-import {TEST_REQUEST} from '../reducers'
+import {all,fork, put,delay,takeLatest} from 'redux-saga/effects';
+import {
+    DAY_REQUEST,DAY_SUCCESS,DAY_FAIL,
+    LIST_ADD_REQUEST,LIST_ADD_SUCCESS,LIST_ADD_FAIL,
+} from '../reducers'
 
 function* testAPI(){
 
 }
 
-function* test(action){
+function* day(action){
     try{
+        yield delay(1000);
         yield put({
-            type:TEST_REQUEST,
+            type:DAY_SUCCESS,
+            data:action.data,
         })
     }catch(err){
         yield put({
-            type:TEST_FAIL,
+            type:DAY_FAIL,
             error:err.response.data,
         })
     }
 }
-
-function* watchTest(){
-    yield takeLatest(TEST_REQUEST,test);
+function* listAdd(action){
+    try{
+        yield delay(1000);
+        yield put({
+            type:LIST_ADD_SUCCESS,
+            data:action.data,
+        })
+    }catch(err){
+        yield put({
+            type:LIST_ADD_FAIL,
+            error:err.response.data,
+        })
+    }
+}
+function* watchDay(){
+    yield takeLatest(DAY_REQUEST,day);
+}
+function* watchListAdd(){
+    yield takeLatest(LIST_ADD_REQUEST,listAdd);
 }
 
 export default function* rootSaga(){
     yield all([
-        //fork(userSaga),   
+        fork(watchDay),   
+        fork(watchListAdd),   
     ])   
 }

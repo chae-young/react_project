@@ -1,11 +1,18 @@
 import React,{useState,useEffect} from 'react';
-import moment from 'moment'
-import WritePopup from './WritePopup';
+import moment from 'moment';
+import {useSelector} from 'react-redux';
+import DayList from './DayList';
 import { Col } from 'react-bootstrap';
 
 const Day = ({day,select,selected})=>{
     const {date,isCurrentMonth,isToday,number}=day;
-    
+    const nowDay = useSelector((state)=>state.nowDay);
+    const dayList = useSelector((state)=>state.dayList);
+    const renderList = ()=>{
+      if(nowDay.number === number && nowDay.date.month() === date.month()){
+        return <ul><DayList/></ul>
+      }
+    }
     return (
         <Col 
           key={date.toString()} 
@@ -15,7 +22,9 @@ const Day = ({day,select,selected})=>{
               (isCurrentMonth ? "" : " different-month") + 
               (date.isSame(selected) ? " selected" : "")
             } 
-          onClick={(e)=>{select(day,e)}}>{number}
+          onClick={(e)=>{select(day,e)}}>
+          {number}
+          {nowDay && renderList()}
         </Col>      
       );
 }

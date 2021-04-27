@@ -3,7 +3,7 @@ import moment from 'moment'
 import 'moment/locale/ko';
 import { Container, Row , Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {useDispatch} from 'react-redux';
+import {useDispatch,useSelector} from 'react-redux';
 import Week from './Week';
 import WritePopup from './WritePopup';
 import {DAY_REQUEST} from '../reducers'
@@ -22,7 +22,7 @@ const CalenderTodo = ()=>{
         const upY = window.innerHeight/4 > e.clientY ? 0 : '50%';
         const downY = window.innerHeight/4 < e.clientY ? 0 : '50%';
         const transForm = (y)=> y ? 'translateY(-50%)' : null;
-        
+
         if(window.innerWidth/2 < e.clientX){
             if(window.innerHeight/2 > e.clientY){
                 console.log('오른쪽위')
@@ -51,7 +51,7 @@ const CalenderTodo = ()=>{
                 console.log('왼쪽 아래')    
                 setStyle({
                     bottom:downY,
-                    left:e.clientXcolWidth+'px',
+                    left:e.clientX+colWidth+'px',
                     transform:transForm(downY),
                 })                              
             }            
@@ -59,6 +59,9 @@ const CalenderTodo = ()=>{
         dispatch({type:DAY_REQUEST,data:day})        
         setSelected(day.date);
         setUserClick(true);
+    }
+    const onClose = (e)=>{
+        setUserClick(false);
     }
     const previous = ()=>{
         setToday(today.clone().subtract(1, 'month'))
@@ -102,7 +105,7 @@ const CalenderTodo = ()=>{
                 <Row className={"calender-name"}>{dayName.map(v=><Col>{v}</Col>)}</Row>
                 {renderWeeks()}
             </Container>             
-            {userClick && <WritePopup style={style}/>}
+            {userClick && <WritePopup style={style} onClose={onClose}/>}
         </div>
     )
 }
