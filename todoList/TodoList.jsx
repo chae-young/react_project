@@ -52,7 +52,7 @@ const TodoList = ()=>{
                     dataSource={checklist}                
                     renderItem={(item,i) => (
                     <List.Item>
-                        <Checkbox checked={completedCheck[i] ? true : false} className={completedCheck[i] && 'line'} onChange={onChangeCheckbox(i)}>{item}</Checkbox>
+                        <Checkbox defaultChecked={ false} checked={completedCheck[i] ? true : false} className={completedCheck[i] && 'line'} onChange={onChangeCheckbox(i)}>{item}</Checkbox>
                         <Button type="text" onClick={onRemoveList(i)}><CloseCircleOutlined /></Button>
                     </List.Item>
                     )}/><Button style={{float:'right'}} type="text" onClick={onAllRemoveList}>Clear</Button></div>

@@ -10,6 +10,7 @@ import {DAY_REQUEST} from '../reducers'
 
 const CalenderTodo = ()=>{
     const dispatch = useDispatch();
+    const nowDay = useSelector((state)=>state.nowDay);
     const [today,setToday] = useState(moment());
     const [selected,setSelected] = useState(moment().startOf('day'));
     const [userClick,setUserClick] = useState(false);
@@ -18,6 +19,7 @@ const CalenderTodo = ()=>{
 
     const select = (day,e)=>{
         //console.log(day.date.toDate());
+        console.log(day.date.month(),day.date.get('date'))
         const colWidth = e.target.clientWidth;
         const upY = window.innerHeight/4 > e.clientY ? 0 : '50%';
         const downY = window.innerHeight/4 < e.clientY ? 0 : '50%';
@@ -105,7 +107,7 @@ const CalenderTodo = ()=>{
                 <Row className={"calender-name"}>{dayName.map(v=><Col>{v}</Col>)}</Row>
                 {renderWeeks()}
             </Container>             
-            {userClick && <WritePopup style={style} onClose={onClose}/>}
+            {nowDay && <WritePopup style={style} onClose={onClose}/>}
         </div>
     )
 }

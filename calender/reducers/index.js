@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 const initialState = {
     dayLoading:false,
     dayDone:false,
@@ -6,7 +8,14 @@ const initialState = {
     listAddDone:false,
     listAddFail:null,    
     nowDay:null,
-    dayList:[],
+    dayList:[
+        {
+            month:null,
+            day:null,
+            text:[],
+            desc:[],
+        }
+    ],
 }
 
 export const DAY_REQUEST = 'DAY_REQUEST';
@@ -34,8 +43,9 @@ const reducer = (state=initialState,action)=>{
         case DAY_SUCCESS:
             return{
                 ...state,
+                
                 dayLoading:false,
-                dayDone:true,                
+                dayDone:true,                                
             }
         case DAY_FAIL:
             return{
@@ -50,6 +60,12 @@ const reducer = (state=initialState,action)=>{
                 listAddDone:false,
             }
         case LIST_ADD_SUCCESS:
+            let month = state.nowDay.date.month();
+            if(!state.dayList[0].month){
+                state.dayList[0].month = month;
+            }else{
+                //const dayList = [...dayList,]
+            }            
             return{
                 ...state,
                 listAddLoading:false,
