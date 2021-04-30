@@ -26,8 +26,10 @@ const WritePopup = ({style,onClose})=>{
     const nowDay = useSelector((state)=>state.nowDay);
     const onSubmit = useCallback((e)=>{
         e.preventDefault();
-        dispatch(listAddAction({nowDay,text,desc}))
-        onClose();
+        dispatch(listAddAction({nowDay,text,desc}));
+        setText('');
+        setDesc('');
+        //onClose();
     },[nowDay,text,desc])
     const onChangeInput = useCallback((e)=>{
         setText(e.target.value);

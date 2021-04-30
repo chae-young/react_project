@@ -1,18 +1,29 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect, useCallback} from 'react';
 import moment from 'moment';
 import {useSelector} from 'react-redux';
 import DayList from './DayList';
 import { Col } from 'react-bootstrap';
 
+
 const Day = ({day,select,selected})=>{
-    const {date,isCurrentMonth,isToday,number}=day;
+    const {date,daymonth,isCurrentMonth,isToday,number}=day;
     const nowDay = useSelector((state)=>state.nowDay);
     const dayList = useSelector((state)=>state.dayList);
-    const renderList = ()=>{
-      if(nowDay.number === number && nowDay.date.month() === date.month()){
-        return <ul><DayList/></ul>
-      }
-    }
+    const {listAddDone} = useSelector((state)=>state);
+
+    const renderList = useCallback(()=>{
+      let dayListArr = [];
+      let list = [];
+        dayList.forEach((v)=>{
+          if(v.month === daymonth && v.day === number){ 
+            dayListArr.push(<DayList data={v}/>)
+            list.push(v)
+          }
+        })
+        console.log(list)
+      return dayListArr
+    },[dayList])
+
     return (
         <Col 
           key={date.toString()} 
@@ -24,7 +35,10 @@ const Day = ({day,select,selected})=>{
             } 
           onClick={(e)=>{select(day,e)}}>
           {number}
-          {nowDay && renderList()}
+          <ul>
+            {renderList()}
+          </ul>
+          <div>더보기</div>
         </Col>      
       );
 }

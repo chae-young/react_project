@@ -107,7 +107,7 @@ const CalenderTodo = ()=>{
                 <Row className={"calender-name"}>{dayName.map(v=><Col>{v}</Col>)}</Row>
                 {renderWeeks()}
             </Container>             
-            {nowDay && <WritePopup style={style} onClose={onClose}/>}
+            {userClick && <WritePopup style={style} onClose={onClose}/>}
         </div>
     )
 }

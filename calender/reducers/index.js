@@ -59,19 +59,32 @@ const reducer = (state=initialState,action)=>{
                 listAddLoading:true,
                 listAddDone:false,
             }
-        case LIST_ADD_SUCCESS:
-            let month = state.nowDay.date.month();
+        case LIST_ADD_SUCCESS:{
+            let month = action.data.nowDay.date.month();
+            let dayList;
             if(!state.dayList[0].month){
-                state.dayList[0].month = month;
+                dayList = [{
+                    month:month,
+                    day:action.data.nowDay.date.get('date'),
+                    text:action.data.text,
+                    desc:action.data.desc,
+                }]
             }else{
-                //const dayList = [...dayList,]
+                dayList = [...state.dayList,{
+                    month:month,
+                    day:action.data.nowDay.date.get('date'),
+                    text:action.data.text,
+                    desc:action.data.desc,
+                }]
             }            
             return{
                 ...state,
                 listAddLoading:false,
                 listAddDone:true,   
-                dayList:[...state.dayList,action.data]             
+                dayList,   
+                //nowDay:null,          
             }
+        }
         case LIST_ADD_FAIL:
             return{
                 ...state,

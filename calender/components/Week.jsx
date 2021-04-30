@@ -8,6 +8,7 @@ const Week = ({date,month,select,selected})=>{
     for (var i = 0; i < 7; i++) {
         let day = {
             name: date.format("dd").substring(0, 1),
+            daymonth:date.month(),
             number: date.date(),
             isCurrentMonth: date.month() === month.month(),
             isToday: date.isSame(new Date(), "day"),

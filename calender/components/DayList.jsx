@@ -1,12 +1,12 @@
 import React,{useState,useEffect} from 'react';
 import { useSelector } from 'react-redux';
 
-const DayList = ()=>{
+const DayList = ({data})=>{
     const {text} = useSelector(state=>state.dayList);
     
     return(
         <>
-            <li>제목없음</li>
+            <li>{data.text}</li>
         </>
     )
 }
