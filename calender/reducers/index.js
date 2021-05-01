@@ -12,6 +12,7 @@ const initialState = {
         {
             month:null,
             day:null,
+            weekDay:null,
             text:[],
             desc:[],
         }
@@ -66,6 +67,7 @@ const reducer = (state=initialState,action)=>{
                 dayList = [{
                     month:month,
                     day:action.data.nowDay.date.get('date'),
+                    weekDay:action.data.nowDay.date.format('dddd'),
                     text:action.data.text,
                     desc:action.data.desc,
                 }]
@@ -73,6 +75,7 @@ const reducer = (state=initialState,action)=>{
                 dayList = [...state.dayList,{
                     month:month,
                     day:action.data.nowDay.date.get('date'),
+                    weekDay:action.data.nowDay.date.format('dddd'),
                     text:action.data.text,
                     desc:action.data.desc,
                 }]

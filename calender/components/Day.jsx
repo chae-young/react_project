@@ -2,6 +2,7 @@ import React,{useState,useEffect, useCallback} from 'react';
 import moment from 'moment';
 import {useSelector} from 'react-redux';
 import DayList from './DayList';
+import MoreListPopup from './MoreListPopup';
 import { Col ,Button} from 'react-bootstrap';
 
 
@@ -10,6 +11,7 @@ const Day = ({day,select,selected})=>{
     const nowDay = useSelector((state)=>state.nowDay);
     const dayList = useSelector((state)=>state.dayList);
     const {listAddDone} = useSelector((state)=>state);
+    const [moreClick,setMoreClick] = useState(false);
 
     const renderList = useCallback(()=>{
       let dayListArr = [];
@@ -26,11 +28,16 @@ const Day = ({day,select,selected})=>{
     },[dayList])
 
     const more = renderList().dayAllList.length >= 3 ? true : false;
+    const onClickMore = useCallback((e)=>{
+      //e.preventDefault();
+      e.stopPropagation();
+      setMoreClick(true);
+    })
 
     return (
-        <Col 
+        <Col
           key={date.toString()} 
-          style={{height:'15vh'}}
+          style={{height:'15vh',position:'relative'}}
           className={
               "day" + (isToday ? " today" : "") + 
               (isCurrentMonth ? "" : " different-month") + 
@@ -41,7 +48,8 @@ const Day = ({day,select,selected})=>{
           <ul>
             {renderList().dayListArr}
           </ul>
-          { more && <Button variant="link">{renderList().dayAllList.length - renderList().dayListArr.length}개 더보기</Button>}
+          { more && <Button onClick={onClickMore} variant="link">{renderList().dayAllList.length - renderList().dayListArr.length}개 더보기</Button>}
+          {moreClick && <MoreListPopup list={renderList().dayAllList}/>}
         </Col>      
       );
 }
