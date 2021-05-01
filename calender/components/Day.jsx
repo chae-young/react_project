@@ -2,7 +2,7 @@ import React,{useState,useEffect, useCallback} from 'react';
 import moment from 'moment';
 import {useSelector} from 'react-redux';
 import DayList from './DayList';
-import { Col } from 'react-bootstrap';
+import { Col ,Button} from 'react-bootstrap';
 
 
 const Day = ({day,select,selected})=>{
@@ -13,16 +13,19 @@ const Day = ({day,select,selected})=>{
 
     const renderList = useCallback(()=>{
       let dayListArr = [];
-      let list = [];
+      let dayAllList = [];
         dayList.forEach((v)=>{
-          if(v.month === daymonth && v.day === number){ 
-            dayListArr.push(<DayList data={v}/>)
-            list.push(v)
+          if(v.month === daymonth && v.day === number){
+            if(dayListArr.length < 2){
+              dayListArr.push(<DayList data={v}/>)
+            }
+            dayAllList.push(v);
           }
         })
-        console.log(list)
-      return dayListArr
+      return {dayListArr,dayAllList}
     },[dayList])
+
+    const more = renderList().dayAllList.length >= 3 ? true : false;
 
     return (
         <Col 
@@ -36,9 +39,9 @@ const Day = ({day,select,selected})=>{
           onClick={(e)=>{select(day,e)}}>
           {number}
           <ul>
-            {renderList()}
+            {renderList().dayListArr}
           </ul>
-          <div>더보기</div>
+          { more && <Button variant="link">{renderList().dayAllList.length - renderList().dayListArr.length}개 더보기</Button>}
         </Col>      
       );
 }
