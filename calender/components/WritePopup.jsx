@@ -29,7 +29,7 @@ const WritePopup = ({style,onClose})=>{
         dispatch(listAddAction({nowDay,text,desc}));
         setText('');
         setDesc('');
-        //onClose();
+        onClose();
     },[nowDay,text,desc])
     const onChangeInput = useCallback((e)=>{
         setText(e.target.value);

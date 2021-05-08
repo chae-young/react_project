@@ -6,7 +6,7 @@ const DayList = ({data})=>{
 
     return(
         <>
-            <li>{data.text.trim().length ?  data.text : '제목없음'}</li>
+            <li>{data.text}</li>
         </>
     )
 }

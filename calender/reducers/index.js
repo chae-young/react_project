@@ -9,13 +9,13 @@ const initialState = {
     listAddFail:null,    
     nowDay:null,
     dayList:[
-        {
-            month:null,
-            day:null,
-            weekDay:null,
-            text:[],
-            desc:[],
-        }
+        // {
+        //     month:null,
+        //     day:null,
+        //     weekDay:null,
+        //     text:[],
+        //     desc:[],
+        // }
     ],
 }
 
@@ -61,31 +61,18 @@ const reducer = (state=initialState,action)=>{
                 listAddDone:false,
             }
         case LIST_ADD_SUCCESS:{
-            let month = action.data.nowDay.date.month();
-            let dayList;
-            if(!state.dayList[0].month){
-                dayList = [{
-                    month:month,
-                    day:action.data.nowDay.date.get('date'),
-                    weekDay:action.data.nowDay.date.format('dddd'),
-                    text:action.data.text,
-                    desc:action.data.desc,
-                }]
-            }else{
-                dayList = [...state.dayList,{
-                    month:month,
-                    day:action.data.nowDay.date.get('date'),
-                    weekDay:action.data.nowDay.date.format('dddd'),
-                    text:action.data.text,
-                    desc:action.data.desc,
-                }]
-            }            
+          
             return{
                 ...state,
                 listAddLoading:false,
                 listAddDone:true,   
-                dayList,   
-                //nowDay:null,          
+                dayList: [...state.dayList,{
+                    month:action.data.nowDay.date.month(),
+                    day:action.data.nowDay.date.get('date'),
+                    weekDay:action.data.nowDay.date.format('dddd'),
+                    text:action.data.text.trim().length ?  data.text : '제목없음',
+                    desc:action.data.desc,
+                }]          
             }
         }
         case LIST_ADD_FAIL:

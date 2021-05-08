@@ -23,8 +23,13 @@ const CalenderTodo = ()=>{
         const colWidth = e.target.clientWidth;
         const upY = window.innerHeight/4 > e.clientY ? 0 : '50%';
         const downY = window.innerHeight/4 < e.clientY ? 0 : '50%';
+        //const leftX =
+        //const rightX =
         const transForm = (y)=> y ? 'translateY(-50%)' : null;
 
+        const x = Array(dayName.length).fill().map((v,i)=>colWidth*i)
+        
+        console.log(x,e.clientX)
         if(window.innerWidth/2 < e.clientX){
             if(window.innerHeight/2 > e.clientY){
                 console.log('오른쪽위')
