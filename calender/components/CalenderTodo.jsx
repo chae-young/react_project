@@ -23,42 +23,45 @@ const CalenderTodo = ()=>{
         const colWidth = e.target.clientWidth;
         const upY = window.innerHeight/4 > e.clientY ? 0 : '50%';
         const downY = window.innerHeight/4 < e.clientY ? 0 : '50%';
-        //const leftX =
-        //const rightX =
         const transForm = (y)=> y ? 'translateY(-50%)' : null;
 
         const x = Array(dayName.length).fill().map((v,i)=>colWidth*i)
-        
-        console.log(x,e.clientX)
-        if(window.innerWidth/2 < e.clientX){
+        const closest = x.reduce((acc,curr)=>{
+            return acc<e.clientX && e.clientX<curr ? acc : curr
+        })
+        if(window.innerWidth/2 < e.clientX){//오른쪽
+            console.log(closest,x)
+            const rightX = window.innerWidth - closest;
             if(window.innerHeight/2 > e.clientY){
                 console.log('오른쪽위')
                 setStyle({
                     top:upY,
-                    right:(window.innerWidth-e.clientX)+colWidth+'px',
+                    //right:(window.innerWidth-e.clientX)+colWidth+'px',
+                    right:rightX,
                     transform:transForm(upY),
                 })
             }else{
                 console.log('오른쪽 아래')      
                 setStyle({
                     bottom:downY,
-                    right:(window.innerWidth-e.clientX)+colWidth+'px',
+                    right:rightX,
                     transform:transForm(downY),
                 })                         
             }
-        }else if(window.innerWidth/2 > e.clientX){
+        }else if(window.innerWidth/2 > e.clientX){//왼쪽
+            const leftX = closest + colWidth;
             if(window.innerHeight/2 > e.clientY){
                 console.log('왼쪽위')
                 setStyle({
                     top:upY,
-                    left:e.clientX+colWidth+'px',
+                    left:leftX+'px',
                     transform:transForm(upY),
                 })                  
             }else{
                 console.log('왼쪽 아래')    
                 setStyle({
                     bottom:downY,
-                    left:e.clientX+colWidth+'px',
+                    left:leftX+'px',
                     transform:transForm(downY),
                 })                              
             }            

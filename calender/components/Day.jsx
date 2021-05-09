@@ -37,7 +37,7 @@ const Day = ({day,select,selected})=>{
     return (
         <Col
           key={date.toString()} 
-          style={{height:'15vh',position:'relative'}}
+          style={{height:'calc((100vh - 48px)/6)',position:'relative'}}
           className={
               "day" + (isToday ? " today" : "") + 
               (isCurrentMonth ? "" : " different-month") + 
