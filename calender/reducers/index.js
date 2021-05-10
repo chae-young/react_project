@@ -70,7 +70,7 @@ const reducer = (state=initialState,action)=>{
                     month:action.data.nowDay.date.month(),
                     day:action.data.nowDay.date.get('date'),
                     weekDay:action.data.nowDay.date.format('dddd'),
-                    text:action.data.text.trim().length ?  data.text : '제목없음',
+                    text:action.data.text.trim().length ?  action.data.text : '제목없음',
                     desc:action.data.desc,
                 }]          
             }
