@@ -1,7 +1,7 @@
 import React,{useState,useEffect, useCallback} from 'react';
 import { X } from 'react-bootstrap-icons';
 import style from 'styled-components';
-import ModifyPopup from './ModifyPopup';
+import EditPopup from './EditPopup';
 
 const MoreListPopWrap = style.div`
     position:absolute;
@@ -21,7 +21,7 @@ const MoreListPopWrap = style.div`
 `
 
 const MoreListPopup = ({list})=>{
-    const [modifyPop,setModifyPop] = useState(false);
+    const [editPopup,setEditPopup] = useState(false);
     const [currentList,setCurrentList] = useState([]);
     const onClickPop = (list)=>{
         setCurrentList((prev)=>[list])
@@ -34,7 +34,7 @@ const MoreListPopup = ({list})=>{
                 {list.map((v,i)=><li onClick={(list)=>onClickPop(v)}>{v.text}</li>)}
             </ul>
             <button><X/></button>
-            {modifyPop && <ModifyPopup currentList={currentList}/>}
+            {editPopup && <EditPopup currentList={currentList}/>}
         </MoreListPopWrap>
     )
 }

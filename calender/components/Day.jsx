@@ -4,14 +4,13 @@ import styles from 'styled-components';
 import {useSelector} from 'react-redux';
 import DayList from './DayList';
 import MoreListPopup from './MoreListPopup';
-import ModifyPopup from './ModifyPopup';
+import EditPopup from './EditPopup';
 import { Col ,Button} from 'react-bootstrap';
 
 const Popup = styles.div`
     position:absolute;
     top:0;
     z-index:99;
-    padding:40px;
     background:#fff;
     -webkit-box-shadow: 0px 6px 18px 4px #666666; 
     box-shadow: 0px 6px 18px 4px #666666;    
@@ -79,7 +78,7 @@ const Day = ({day,select,selected})=>{
           </ul>
           { more && <Button onClick={onClickMore} variant="link">{renderList().dayAllList.length - renderList().dayListArr.length}개 더보기</Button>}
           {moreClick && <MoreListPopup list={renderList().dayAllList}/>}
-          {modifyPop && <Popup style={style} onClick={(e)=>e.stopPropagation()}><ModifyPopup currentList={currentList}/></Popup>}
+          {modifyPop && <Popup style={style} onClick={(e)=>e.stopPropagation()}><EditPopup currentList={currentList}/></Popup>}
 
         </Col>      
       );
