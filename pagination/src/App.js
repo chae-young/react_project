@@ -72,12 +72,30 @@ const ListArr = [
     "dsf",
     "dsf",
     "dsf",
+    "8",
+    "dd",
+    "sdfs",
+    "dsf",
+    "dsf",
+    "dsf",
+    "dsf",
+    "dsf",
+    "dsf",
+    "dsf",
+    "9",
+    "dd",
+    "sdfs",
+    "dsf",
+    "dsf",
+    "dsf",
+    "dsf",
+    "dsf",
+    "dsf",
+    "dsf",
 ];
 
 function App() {
     const PaginationData = usePagination(ListArr, 10, 5);
-
-    console.log(PaginationData.currentPage);
 
     return (
         <>
@@ -88,15 +106,7 @@ function App() {
             </ul>
             <div>
                 <button onClick={PaginationData.onClickPrev}>이전</button>
-                {PaginationData.getPageRender().map((v) => (
-                    <span
-                        className={
-                            PaginationData.currentPage + 1 === v && "active"
-                        }
-                    >
-                        {v}
-                    </span>
-                ))}
+                {PaginationData.getPageRender()}
                 <button onClick={PaginationData.onClickNext}>다음</button>
             </div>
         </>
