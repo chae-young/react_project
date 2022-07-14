@@ -1,39 +1,38 @@
-import { useState } from "react";
-import MsgInput from "./MsgInput";
-import MsgItem from "./MsgItem";
+import { useEffect, useState } from "react"
+import MsgItem from "./MsgItem"
 
-const userIds = ["채영", "이챙"];
-const getRandomUserId = () => userIds[Math.round(Math.random())];
-const originalMsgs = Array(50)
-    .fill(0)
-    .map((_, i) => ({
-        id: 50 - i,
-        userId: getRandomUserId(),
-        timestamp: 1234567890123 + (50 - i) * 1000 * 60,
-        text: `${50 - i} mock text`,
-    }));
+const UserIds = ['채영',"수지","나은"]
+const getRandomUserId = () => UserIds[Math.round(Math.random())]
+
+const msgs = Array(5).fill(0).map((_, i) => ({
+    id: i + 1,
+    userId: getRandomUserId(),
+    timestamp: 1234567891 + i * 1000 * 60,
+    text: `${i + 1} text`
+}))
+
+
+// [
+//     {
+//         id:1,
+//         userId: getRandomUserId(),
+//         timestamp: 1234567891,
+//         text:'1 text'
+//     }
+// ]
 
 const MsgList = () => {
-    const [msgs, setMsgs] = useState(originalMsgs);
-    const onCreate = (text) => {
-        const newMsg = {
-            id: msgs.length,
-            userId: getRandomUserId(),
-            timestamp: Date.now(),
-            text: `${msgs.length} ${text}`,
-        };
-        setMsgs((msgs) => [newMsg, ...msgs]);
-    };
-    return (
-        <>
-            <MsgInput mutate={onCreate} />
-            <ul className="messages">
-                {msgs.map((x) => (
-                    <MsgItem key={x.id} {...x} />
-                ))}
-            </ul>
-        </>
-    );
-};
+    const [msgArr,setMsgArr] = useState() 
 
-export default MsgList;
+    useEffect(()=>{
+        setMsgArr(msgs)
+    },[])
+
+    return(
+    <ul className="messages">
+        {msgArr?.map(x => <MsgItem key={x.id} {...x}/>)}
+    </ul>    
+    )
+}
+
+export default MsgList

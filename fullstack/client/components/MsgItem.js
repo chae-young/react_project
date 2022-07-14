@@ -1,20 +1,24 @@
-const MsgItem = ({ userId, timestamp, text }) => (
-    <li>
+const MsgItem = ({
+    userId,
+    timestamp,
+    text
+}) => (
+    <li className="messages__item">
         <h3>
-            {userId}{" "}
+            {userId}{' '}
             <sub>
-                {new Date(timestamp).toLocaleString("ko-KR", {
-                    year: "numeric",
-                    month: "numeric",
-                    day: "numeric",
-                    hour: "2-digit",
-                    minute: "2-digit",
+                {new Date(timestamp).toLocaleString('ko-KR',{
+                    year: 'numeric',
+                    month: 'numeric',
+                    day: 'numeric',
+                    hour:'2-digit',
+                    minute:'2-digit',
                     hour12: true,
                 })}
             </sub>
         </h3>
         {text}
     </li>
-);
+)
 
-export default MsgItem;
+export default MsgItem
