@@ -11,7 +11,7 @@ const msgs = Array(5).fill(0).map((_, i) => ({
     timestamp: 1234567891 + i * 1000 * 60,
     text: `${i + 1} text`
 }))
-
+console.log(JSON.stringify(msgs))
 
 // [
 //     {
