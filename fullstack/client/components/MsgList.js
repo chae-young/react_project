@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState,useRef } from "react"
 import MsgInput from "./MsgInput"
 import MsgItem from "./MsgItem"
 import fetcher from "../fetcher"
 import {useRouter} from 'next/router'
+import useInfiniteScroll from '../hooks/useInfiniteScroll'
 
 const UserIds = ['채영',"수지","나은"]
 const getRandomUserId = () => UserIds[Math.round(Math.random())]
@@ -26,17 +27,26 @@ const getRandomUserId = () => UserIds[Math.round(Math.random())]
 
 const MsgList = () => {
     const {query:{userId = ''}} = useRouter()
-    const [originalMsgArr,originalSetMsgArr] = useState() 
+    const [originalMsgArr,originalSetMsgArr] = useState([]) 
     const [editingId,setEditingId] = useState(null)
+    const fetchMoreEl = useRef(null)
+    const intersecting = useInfiniteScroll(fetchMoreEl) //화면상에 넘어오면 true or false
 
     const getMessages = async() => {
-        const msgs = await fetcher('get','/messages')
-        originalSetMsgArr(msgs)
+        console.log(originalMsgArr)
+        const newMsgs = await fetcher('get','/messages',{params: {cursor: originalMsgArr[originalMsgArr.length - 1]?.id || ''}})
+        if(intersecting) return originalSetMsgArr(msgs=> [...msgs,...newMsgs])
+        originalSetMsgArr(newMsgs)
     }
 
     useEffect(()=>{
-        getMessages()
+        //getMessages()
     },[])
+
+    useEffect(()=>{
+        if(intersecting) getMessages()
+        
+    },[intersecting])
 
     const onCreate = async text => {
         //useId는 쿼리로 뽑아오기
@@ -93,6 +103,7 @@ const MsgList = () => {
                 />
             )}
         </ul>    
+        <div ref={fetchMoreEl}></div>
     </>
     )
 }

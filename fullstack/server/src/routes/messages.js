@@ -8,9 +8,13 @@ const messgesRoute = [
     {
         method:"get",
         route:"/messages",
-        handler:(req,res) => {
+        handler:({query: {cursor = ''}},res) => {
             const msgs = getMsgs()
-            res.send(msgs)
+            //id가 빈값이면 index가 -1이기때문에 +1 하면 0 
+            //20를 불러오면 마지막 id값이 19이기 때문에 다음 20개부터 불러옴..
+            console.log(cursor)
+            const fromIndex = msgs.findIndex(msg => msg.id === cursor) +1
+            res.send(msgs.slice(fromIndex,fromIndex + 20))//15개 씩 불러오기
         }
     },
     {
