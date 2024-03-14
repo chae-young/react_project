@@ -25,8 +25,12 @@ function App() {
         // 마운트시 import 해준다.
         // const component = import('./components/ImageModal')
         LazyImageModal.preload()
-    },[])
 
+        // 이미지 미리로드
+        const img = new Image()
+        img.src = 'https://stillmed.olympic.org/media/Photos/2016/08/20/part-1/20-08-2016-Football-Men-01.jpg?interpolation=lanczos-none&resize=*:800'
+    },[])
+    // 마우스 오버시 미리로드
     // const handleMouseEnter = () => {
     //     const component = import('./components/ImageModal')
     // }
