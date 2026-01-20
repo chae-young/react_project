@@ -1,11 +1,12 @@
 import Cafeteria from "./components/Cafeteria"
+import ShoppingCart from "./components/ShoppingCart"
 
 function App() {
 
   return (
     <>
       <div>
-        <Cafeteria />
+        <ShoppingCart />
       </div>
     </>
   )
