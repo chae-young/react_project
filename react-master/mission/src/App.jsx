@@ -1,3 +1,4 @@
+import ModularCafeteria from "../../section1/src/pages/ModularCafeteria"
 import Cafeteria from "./components/Cafeteria"
 import OfficeControl from "./components/OfficeControl"
 import ShoppingCart from "./components/ShoppingCart"
@@ -8,7 +9,7 @@ function App() {
   return (
     <>
       <div>
-        <OfficeControl />
+        <ModularCafeteria />
       </div>
     </>
   )
