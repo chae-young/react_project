@@ -1,18 +1,11 @@
-import ModularCafeteria from "../../section1/src/pages/ModularCafeteria";
-import Cafeteria from "./components/Cafeteria";
-import Course from "./components/Course";
-import OfficeCafeteria from "./components/OfficeCafeteria";
-import OfficeControl from "./components/OfficeControl";
-import ReactTimesCon from "./components/ReactTimesCon";
-import ShoppingCart from "./components/ShoppingCart";
-import SmartTicket from "./components/SmartTicket";
+import ReactTimesCon2 from "./components/ReactTimesCon2";
+import ThemeApp from "./components/ThemeApp";
+
 
 function App() {
 	return (
 		<>
-			<div>
-				<ReactTimesCon />
-			</div>
+			<ReactTimesCon2/>
 		</>
 	);
 }
