@@ -1,17 +1,14 @@
 import "./App.css";
-import LostAndFoundDesk from "./components/LostAndFoundDesk";
-import { NoticeBoard } from "./components/NoticeBoard";
-import { CenterProvider } from "./contexts/centerContext";
+import CounterScreen from "./components/CounterScreen";
+import CounterProvider from "./contexts/CounterProvider";
+
 
 
 function App() {
 	return (
-		<>
-			<NoticeBoard/>
-			<CenterProvider>
-				<LostAndFoundDesk/>
-			</CenterProvider>
-		</>
+		<CounterProvider>
+			<CounterScreen/>
+		</CounterProvider>
 	);
 }
 
