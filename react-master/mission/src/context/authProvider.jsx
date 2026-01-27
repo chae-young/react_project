@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 import {AuthContext, ThemeContext} from './context'
 
 export function AuthProvider({children}) {
