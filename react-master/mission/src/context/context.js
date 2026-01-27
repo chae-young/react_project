@@ -6,3 +6,4 @@ export const ThemeContext = createContext({
 })
 
 export const AuthContext = createContext('로그인 정보가 없습니다.')
+export const FormContext = createContext()

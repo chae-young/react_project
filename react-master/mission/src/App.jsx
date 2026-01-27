@@ -1,11 +1,11 @@
-import ReactTimedAuthSystem from "./components/ReactTimedAuthSystem";
+import SignupPage from "./pages/SignupPage";
 
 
 
 function App() {
 	return (
 		<>
-			<ReactTimedAuthSystem/>
+			<SignupPage/>
 		</>
 	);
 }
