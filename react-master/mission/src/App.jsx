@@ -1,3 +1,4 @@
+import OrderContent from "./components/OrderContent";
 import CartPage from "./pages/CartPage";
 import SignupPage from "./pages/SignupPage";
 
@@ -6,6 +7,7 @@ import SignupPage from "./pages/SignupPage";
 function App() {
 	return (
 		<>
+			<OrderContent/>
 		</>
 	);
 }
