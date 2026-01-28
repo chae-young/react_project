@@ -6,7 +6,6 @@ import SignupPage from "./pages/SignupPage";
 function App() {
 	return (
 		<>
-			<CartPage/>
 		</>
 	);
 }

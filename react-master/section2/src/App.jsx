@@ -1,14 +1,10 @@
 import "./App.css";
-import CounterScreen from "./components/CounterScreen";
-import CounterProvider from "./contexts/CounterProvider";
-
+import UserProfile from './components/UserProfile'
 
 
 function App() {
 	return (
-		<CounterProvider>
-			<CounterScreen/>
-		</CounterProvider>
+		<UserProfile/>
 	);
 }
 

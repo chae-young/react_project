@@ -6,7 +6,6 @@ export const initialAlert = {
 export function AlertReducer(state, action) {
     switch(action.type) {
         case 'ADD_TOAST': 
-        console.log(action.message)
             return {
                 ...state,
                 status: true,

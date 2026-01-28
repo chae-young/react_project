@@ -1,6 +1,6 @@
 import {useReducer} from 'react'
 import { AlertContext } from './context';
-import { AlertReducer, initialAlert } from './AlertReducer';
+import { AlertReducer, initialAlert } from '../../../section2/src/contexts/AlertReducer';
 
 
 
