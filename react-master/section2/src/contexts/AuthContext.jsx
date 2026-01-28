@@ -1,5 +1,5 @@
-import { useReducer} from 'react'
-import { AuthContext } from '../../../mission/src/context/context'
+import { useReducer, useMemo } from 'react'
+import { AuthStateContext, AuthDispatchContext } from './contexts'
 
 
 const authReducer = (state, action) => {
@@ -12,6 +12,8 @@ const authReducer = (state, action) => {
             return {user: null, isLoading: false, error: action.payload}
         case "LOGOUT":
             return {user: null, isLoading: false, error: null}
+        case "CHANGE_NAME": 
+            return {...state, name: action.payload}
         default:
             return state
     }
@@ -24,9 +26,13 @@ export function AuthProvider({children}) {
         error: null
     })
 
+    const memoizedState = useMemo(() => state, [state])
+
     return (
-        <AuthContext.Provider value={{...state, dispatch}}>
-            {children}
-        </AuthContext.Provider>
+        <AuthStateContext.Provider value={memoizedState}>
+            <AuthDispatchContext.Provider value={dispatch}>
+                {children}
+            </AuthDispatchContext.Provider>
+        </AuthStateContext.Provider>
     )
 }
