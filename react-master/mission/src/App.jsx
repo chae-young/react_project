@@ -1,4 +1,6 @@
 import OrderContent from "./components/OrderContent";
+import PrdList from "./components/PrdList";
+import { ProductProvider } from "./context/ProductContext";
 import CartPage from "./pages/CartPage";
 import SignupPage from "./pages/SignupPage";
 
@@ -6,9 +8,9 @@ import SignupPage from "./pages/SignupPage";
 
 function App() {
 	return (
-		<>
-			<OrderContent/>
-		</>
+		<ProductProvider>
+			<PrdList/>
+		</ProductProvider>
 	);
 }
 
