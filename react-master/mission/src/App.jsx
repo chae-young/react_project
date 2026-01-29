@@ -5,12 +5,13 @@ import OfficeCafeteria from "./components/OfficeCafeteria";
 import OfficeControl from "./components/OfficeControl";
 import ShoppingCart from "./components/ShoppingCart";
 import SmartTicket from "./components/SmartTicket";
+import TaskSection from "./components/TaskSection";
 
 function App() {
 	return (
 		<>
 			<div>
-				<Course />
+				<TaskSection />
 			</div>
 		</>
 	);
